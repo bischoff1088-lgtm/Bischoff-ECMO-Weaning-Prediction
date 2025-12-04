@@ -3,6 +3,16 @@ import json
 from pathlib import Path
 import pandas as pd
 
+# Sidebar Logo (perfekt zentriert)
+with st.sidebar:
+    st.markdown("<br>", unsafe_allow_html=True)
+
+    LOGO_PATH = Path(__file__).parent.parent / "logo" / "logo_main.png"
+    if LOGO_PATH.exists():
+        st.image(str(LOGO_PATH), width=160)
+
+    st.markdown("<br>", unsafe_allow_html=True)
+
 PATIENT_FILE = Path("data") / "patients.json"
 
 def load_patients():

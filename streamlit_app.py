@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 import os
+from pathlib import Path
 
 # -------------------------------------------------------------
 # Grundkonfiguration der App
@@ -31,8 +32,16 @@ def save_users(users):
 # -------------------------------------------------------------
 with st.sidebar:
     st.markdown("<br>", unsafe_allow_html=True)
-    st.image("logo/logo_main.png", width=160)
+
+    # Logo-Pfad robust bestimmen (egal, von wo die App gestartet wird)
+    LOGO_PATH = Path(__file__).parent / "logo" / "logo_main.png"
+    if LOGO_PATH.exists():
+        st.image(str(LOGO_PATH), width=160)
+    else:
+        st.write("⚠️ Logo nicht gefunden")
+
     st.markdown("<br>", unsafe_allow_html=True)
+
     # keine eigene Navigation mehr – Streamlit-Menü reicht aus
 
 # -------------------------------------------------------------
@@ -132,3 +141,5 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+with st.sidebar:
+    st.write("---")
