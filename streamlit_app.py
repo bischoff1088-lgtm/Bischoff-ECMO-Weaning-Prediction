@@ -33,12 +33,7 @@ with st.sidebar:
     st.markdown("<br>", unsafe_allow_html=True)
     st.image("logo/logo_main.png", width=160)
     st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("### Navigation")
-    # Links zu den Unterseiten
-    st.page_link("streamlit_app.py", label="🏠 Start")
-    st.page_link("pages/1_Patientendaten.py", label="🧍 Patientendaten")
-    st.page_link("pages/2_Weaning_Tool.py", label="🫁 Weaning Tool")
-    st.page_link("pages/3_Verläufe.py", label="📈 Verläufe")
+    # keine eigene Navigation mehr – Streamlit-Menü reicht aus
 
 # -------------------------------------------------------------
 # Startseite – Titel & Untertitel
