@@ -66,8 +66,8 @@ st.subheader("Neuen Patienten anlegen oder vorhandenen bearbeiten")
 
 col1, col2 = st.columns(2)
 with col1:
-    pat_id = st.text_input("Patienten-ID (z.B. ECMO-001)")
-    name = st.text_input("Name")
+    pat_id = st.text_input("Patienten-ID (z.B. ECMO-2025-001)")
+    name = st.text_input("Fallbeschreibung / Infon (optoinal)")
 with col2:
     diagnose = st.text_input("Diagnose / Kommentar", value="VA-ECMO")
     age = st.number_input("Alter", min_value=0, max_value=120, value=60)
