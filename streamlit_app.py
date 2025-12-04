@@ -2,11 +2,20 @@ import streamlit as st
 import json
 import os
 
+# -------------------------------------------------------------
+# Grundkonfiguration der App
+# -------------------------------------------------------------
+st.set_page_config(
+    page_title="Bischoff ECMO Weaning Prediction",
+    page_icon="🫀",
+    layout="centered"
+)
+
 USER_FILE = "data/user.json"
 
-# ------------------------------------------------------------------
+# -------------------------------------------------------------
 # Hilfsfunktionen für Nutzer
-# ------------------------------------------------------------------
+# -------------------------------------------------------------
 def load_users():
     if not os.path.exists(USER_FILE):
         return {}
@@ -17,17 +26,23 @@ def save_users(users):
     with open(USER_FILE, "w") as f:
         json.dump(users, f, indent=4)
 
-# ------------------------------------------------------------------
-# Sidebar mit Logo
-# ------------------------------------------------------------------
+# -------------------------------------------------------------
+# Sidebar: Logo + Navigation
+# -------------------------------------------------------------
 with st.sidebar:
     st.markdown("<br>", unsafe_allow_html=True)
     st.image("logo/logo_main.png", width=160)
     st.markdown("<br>", unsafe_allow_html=True)
+    st.markdown("### Navigation")
+    # Links zu den Unterseiten
+    st.page_link("streamlit_app.py", label="🏠 Start")
+    st.page_link("pages/1_Patientendaten.py", label="🧍 Patientendaten")
+    st.page_link("pages/2_Weaning_Tool.py", label="🫁 Weaning Tool")
+    st.page_link("pages/3_Verläufe.py", label="📈 Verläufe")
 
-# ------------------------------------------------------------------
+# -------------------------------------------------------------
 # Startseite – Titel & Untertitel
-# ------------------------------------------------------------------
+# -------------------------------------------------------------
 st.markdown(
     """
     <h1 style='text-align:center; margin-bottom:0px;'>
@@ -36,17 +51,27 @@ st.markdown(
     <h4 style='text-align:center; color:#555; margin-top:5px;'>
         Frühwarn- & Entscheidungsunterstützung für VA-ECMO-Weaning (Studienversion)
     </h4>
-    <br><br>
+    <br>
     """,
     unsafe_allow_html=True
 )
 
+# Medizinischer Hinweis / Disclaimer
+st.info(
+    "Dieses Tool dient als **klinisches Assistenzsystem** zur Abschätzung der "
+    "**Weaning-Wahrscheinlichkeit** unter VA-ECMO.\n\n"
+    "Es ersetzt **keine ärztliche Beurteilung** und darf nur im Rahmen von "
+    "Forschung/Lehre bzw. kontrollierten Simulationen verwendet werden."
+)
+
+st.write("---")
+
 users = load_users()
 have_users = len(users) > 0
 
-# ------------------------------------------------------------------
-# Login-Bereich (optional, aber nur sinnvoll nach Registrierung)
-# ------------------------------------------------------------------
+# -------------------------------------------------------------
+# Optionales Login
+# -------------------------------------------------------------
 st.markdown("### 🔐 Login (optional)")
 
 username = st.text_input("Benutzername", key="login_user")
@@ -79,9 +104,9 @@ else:
             "Login ist optional – die App kann auch ohne Anmeldung genutzt werden."
         )
 
-# ------------------------------------------------------------------
-# Registrierung (optional – notwendig, um später sinnvoll einzuloggen)
-# ------------------------------------------------------------------
+# -------------------------------------------------------------
+# Registrierung (optional)
+# -------------------------------------------------------------
 st.markdown("---")
 st.markdown("### 🧾 Registrierung (optional)")
 
@@ -111,4 +136,4 @@ st.markdown(
     </p>
     """,
     unsafe_allow_html=True
-    )
+)
